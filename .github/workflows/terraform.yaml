@@ -1,0 +1,58 @@
+name: Test Infra
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "AnyML Environment, Currently support predev"
+        required: true
+        default: 'kubernetes'
+        type: choice
+        options:
+          - kubernetes
+      action:
+        description: "Action on AnyML environment."
+        required: true
+        default: "scale_down"
+        type: choice
+        options:
+          - scale_down
+          - scale_up
+
+jobs:
+  lint:
+    name: Terraform Lint
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: "${{ github.event.inputs.environment }}"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+
+      - name: Terraform Init
+        id: init
+        run: terraform init
+
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate -no-color
+
+  pods_scale:
+    name: Scale Pods
+    runs-on: ubuntu-latest
+    # defaults:
+    #   run:
+    #     working-directory: env-manage
+    
+    steps:
+      - name: Get Kube Config File
+        run: |
+          echo "$KUBECONFIG"
+          echo "${{ github.event.inputs.environment }}"
+        env:
+          KUBECONFIG: ${{ secrets[format('{0}_CONFIG', github.event.inputs.environment)] }}

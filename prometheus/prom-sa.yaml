@@ -1,0 +1,75 @@
+---
+# Source: prometheus/charts/kube-state-metrics/templates/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    app.kubernetes.io/name: kube-state-metrics
+    helm.sh/chart: kube-state-metrics-3.1.1
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/instance: prometheus
+  name: prometheus-kube-state-metrics
+  namespace: prometheus
+imagePullSecrets:
+  []
+---
+# Source: prometheus/templates/alertmanager/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    component: "alertmanager"
+    app: prometheus
+    release: prometheus
+    chart: prometheus-14.4.1
+    heritage: Helm
+  name: prometheus-alertmanager
+  namespace: prometheus
+  annotations:
+    {}
+---
+# Source: prometheus/templates/node-exporter/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    component: "node-exporter"
+    app: prometheus
+    release: prometheus
+    chart: prometheus-14.4.1
+    heritage: Helm
+  name: prometheus-node-exporter
+  namespace: prometheus
+  annotations:
+    {}
+---
+# Source: prometheus/templates/pushgateway/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    component: "pushgateway"
+    app: prometheus
+    release: prometheus
+    chart: prometheus-14.4.1
+    heritage: Helm
+  name: prometheus-pushgateway
+  namespace: prometheus
+  annotations:
+    {}
+---
+# Source: prometheus/templates/server/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    component: "server"
+    app: prometheus
+    release: prometheus
+    chart: prometheus-14.4.1
+    heritage: Helm
+  name: prometheus-server
+  namespace: prometheus
+  annotations:
+    {}
+---
