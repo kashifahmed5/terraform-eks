@@ -29,7 +29,7 @@ variable "CLUSTER_LOG_RETENTATION_IN_DAYS" {
 variable "INSTANCE_TYPES" {
   type        = list(string)
   description = "List of Instance types to create the worker nodegroup."
-  default     = ["t3.medium"]
+  default     = ["t2.micro"]
 }
 
 variable "VPC_ID" {
@@ -63,19 +63,19 @@ variable "ROOT_VOLUME_SIZE" {
 }
 
 variable "MAX_SIZE" {
-  default     = 10
+  default     = 4
   type        = number
   description = "Maximum number of worker nodes."
 }
 
 variable "MIN_SIZE" {
-  default     = 6
+  default     = 2
   type        = number
   description = "Minimum Number of worker nodes."
 }
 
 variable "DESIRED_SIZE" {
-  default     = 8
+  default     = 2
   type        = string
   description = "Desired capacity of the worker nodes."
 }
