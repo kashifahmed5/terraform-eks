@@ -226,6 +226,7 @@ pipeline {
                                 ]]){
                                     try {
                                             sh("""
+                                            aws eks --region us-east-1 update-kubeconfig --name EKS_CLUSTER
                                             mkdir -p ~/.kube
                                             cp $WORKSPACE/kubernetes/scripts/kubeconfig ~/.kube/config
                                             """)
