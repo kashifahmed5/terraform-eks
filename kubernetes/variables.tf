@@ -29,7 +29,7 @@ variable "CLUSTER_LOG_RETENTATION_IN_DAYS" {
 variable "INSTANCE_TYPES" {
   type        = list(string)
   description = "List of Instance types to create the worker nodegroup."
-  default     = ["t3.micro"]
+  default     = ["t2.medium"]
 }
 
 variable "VPC_ID" {

@@ -23,43 +23,43 @@ pipeline {
 
     parameters {
         
-        choice (name: 'AWS_REGION', choices: [ 'us-east-1', 'ap-northeast-1', 'us-east-2'], description: 'Pick a Region. Defaults to ap-northeast-1')
+        choice (name_prefix: 'AWS_REGION', choices: [ 'us-east-1', 'ap-northeast-1', 'us-east-2'], description: 'Pick a Region. Defaults to ap-northeast-1')
         
-        choice (name: 'ACTION', choices: ['plan', 'apply', 'destroy'], description: 'Run terraform plan / apply / destroy')
+        choice (name_prefix: 'ACTION', choices: ['plan', 'apply', 'destroy'], description: 'Run terraform plan / apply / destroy')
 
-        string (name: 'PROFILE', defaultValue: 'sohail', description: 'Optional, Target AWS Profile')
+        string (name_prefix: 'PROFILE', defaultValue: 'sohail', description: 'Optional, Target AWS Profile')
 
-        string (name: 'ENV_NAME', defaultValue: 'tf-AWS', description: 'Env name.')
+        string (name_prefix: 'ENV_NAME', defaultValue: 'tf-AWS', description: 'Env name.')
 
-        string (name: 'CLUSTER_NAME', defaultValue: 'EKS_CLUSTER', description: 'Name of EKS cluster.')
+        string (name_prefix: 'CLUSTER_NAME', defaultValue: 'EKS_CLUSTER', description: 'Name of EKS cluster.')
 
-        choice (name: 'CLUSTER_VERSION', choices: [ '1.20', '1.21', '1.19'], description: 'Kubernetes version in EKS.')
+        choice (name_prefix: 'CLUSTER_VERSION', choices: [ '1.20', '1.21', '1.19'], description: 'Kubernetes version in EKS.')
 
-        string (name: 'VPC_ID', defaultValue: 'vpc-36f4fd53', description: 'VPC ID on which the cluster will be on.')
+        string (name_prefix: 'VPC_ID', defaultValue: 'vpc-36f4fd53', description: 'VPC ID on which the cluster will be on.')
 
-        string (name: 'INSTANCE_TYPES', defaultValue: '["t2.medium"]', description: 'List of the instance type to create the nodegroup.')
+        string (name_prefix: 'INSTANCE_TYPES', defaultValue: '["t2.medium"]', description: 'List of the instance type to create the nodegroup.')
 
-        string (name: 'API_SUBNET', defaultValue: '["subnet-76a41c7a", "subnet-0abc2c6f"]', description: 'List of subnet for API server.')
+        string (name_prefix: 'API_SUBNET', defaultValue: '["subnet-76a41c7a", "subnet-0abc2c6f"]', description: 'List of subnet for API server.')
 
-        string (name: 'WORKER_SUBNETS', defaultValue: '["subnet-7513612c"]', description: 'List of subnets for worker node.')
+        string (name_prefix: 'WORKER_SUBNETS', defaultValue: '["subnet-7513612c"]', description: 'List of subnets for worker node.')
 
-        string (name: 'DESIRED_SIZE', defaultValue: '2', description: 'Desired size of the worker nodes.')
+        string (name_prefix: 'DESIRED_SIZE', defaultValue: '2', description: 'Desired size of the worker nodes.')
 
-        string (name: 'MAX_SIZE', defaultValue: '3', description: 'Maximum number of the worker nodes.')
+        string (name_prefix: 'MAX_SIZE', defaultValue: '3', description: 'Maximum number of the worker nodes.')
 
-        string (name: 'MIN_SIZE', defaultValue: '2', description: 'Minimum number of the worker nodes.')
+        string (name_prefix: 'MIN_SIZE', defaultValue: '2', description: 'Minimum number of the worker nodes.')
 
-        string (name: 'ROOT_VOLUME_SIZE', defaultValue: '50', description: 'Size of Root Volume in worker nodes.')
+        string (name_prefix: 'ROOT_VOLUME_SIZE', defaultValue: '50', description: 'Size of Root Volume in worker nodes.')
 
-        choice (name: 'API_PUBLIC_ACCESS', choices: [ 'true', 'false'], description: 'Allow api server to be accessed using public endpoint.')
+        choice (name_prefix: 'API_PUBLIC_ACCESS', choices: [ 'true', 'false'], description: 'Allow api server to be accessed using public endpoint.')
 
-        choice (name: 'API_PRIVATE_ACCESS', choices: [ 'true', 'false',], description: 'Allow API server to be accessed using private endpoint.')
+        choice (name_prefix: 'API_PRIVATE_ACCESS', choices: [ 'true', 'false',], description: 'Allow API server to be accessed using private endpoint.')
 
-        choice (name: 'ISTIO_LOADBALANCER', choices: [ 'external', 'internal',], description: 'Allow API server to be accessed using private endpoint.')
+        choice (name_prefix: 'ISTIO_LOADBALANCER', choices: [ 'external', 'internal',], description: 'Allow API server to be accessed using private endpoint.')
 
-        string (name: 'GRAFANA_DOMAIN_NAME', defaultValue: 'grafana.test.com', description: 'Domain Name for grafana dashboard.')
+        string (name_prefix: 'GRAFANA_DOMAIN_NAME', defaultValue: 'grafana.test.com', description: 'Domain Name for grafana dashboard.')
 
-        string (name: 'KIALI_DOMAIN_NAME', defaultValue: 'kiali.test.com', description: 'Domain Name for grafana dashboard.')
+        string (name_prefix: 'KIALI_DOMAIN_NAME', defaultValue: 'kiali.test.com', description: 'Domain Name for grafana dashboard.')
 
     }
 
@@ -226,7 +226,7 @@ pipeline {
                                 ]]){
                                     try {
                                             sh("""
-                                            aws eks --region us-east-1 update-kubeconfig --name EKS_CLUSTER
+                                            
                                             mkdir -p ~/.kube
                                             cp $WORKSPACE/kubernetes/scripts/kubeconfig ~/.kube/config
                                             """)
