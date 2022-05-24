@@ -238,6 +238,7 @@ pipeline {
                                                 """)
                                             } else {
                                                 sh("""
+                                                aws eks --region us-east-1 update-kubeconfig --name EKS_CLUSTER
                                                 kubectl create ns istio-system
                                                 kubectl apply -f $WORKSPACE/istio/services/service-external.yaml
                                                 """)
