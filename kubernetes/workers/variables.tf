@@ -21,15 +21,15 @@ variable "ROOT_VOLUME_SIZE" {
 }
 
 variable "MAX_SIZE" {
-  default = 10
+  default = 3
 }
 
 variable "MIN_SIZE" {
-  default = 6
+  default = 2
 }
 
 variable "DESIRED_SIZE" {
-  default = 8
+  default = 2
 }
 
 variable "FORCE_DELETE" {
