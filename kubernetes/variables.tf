@@ -63,19 +63,19 @@ variable "ROOT_VOLUME_SIZE" {
 }
 
 variable "MAX_SIZE" {
-  default     = 8
+  default     = 3
   type        = number
   description = "Maximum number of worker nodes."
 }
 
 variable "MIN_SIZE" {
-  default     = 6
+  default     = 2
   type        = number
   description = "Minimum Number of worker nodes."
 }
 
 variable "DESIRED_SIZE" {
-  default     = 6
+  default     = 2
   type        = string
   description = "Desired capacity of the worker nodes."
 }
